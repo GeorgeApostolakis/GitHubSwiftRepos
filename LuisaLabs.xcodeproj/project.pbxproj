@@ -7,13 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7A9D63E12D4EDF890016A522 /* LuisaLabsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D63E02D4EDF890016A522 /* LuisaLabsApp.swift */; };
-		7A9D63E32D4EDF890016A522 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D63E22D4EDF890016A522 /* ContentView.swift */; };
+		7A9BEF212D52F97E00ADC745 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9BEF202D52F97E00ADC745 /* SceneDelegate.swift */; };
+		7A9BEF242D52F9DF00ADC745 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9BEF232D52F9DF00ADC745 /* Coordinator.swift */; };
+		7A9BEF262D52FAFF00ADC745 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9BEF252D52FAFF00ADC745 /* AppCoordinator.swift */; };
+		7A9BEF382D53111C00ADC745 /* GitHubEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9BEF372D53111C00ADC745 /* GitHubEndpoints.swift */; };
+		7A9D63E32D4EDF890016A522 /* GitHubRepositoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D63E22D4EDF890016A522 /* GitHubRepositoriesViewModel.swift */; };
 		7A9D63E52D4EDF8B0016A522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A9D63E42D4EDF8B0016A522 /* Assets.xcassets */; };
 		7A9D63E82D4EDF8B0016A522 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A9D63E72D4EDF8B0016A522 /* Preview Assets.xcassets */; };
 		7A9D63F22D4EDF8B0016A522 /* LuisaLabsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D63F12D4EDF8B0016A522 /* LuisaLabsTests.swift */; };
 		7A9D63FC2D4EDF8B0016A522 /* LuisaLabsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D63FB2D4EDF8B0016A522 /* LuisaLabsUITests.swift */; };
 		7A9D63FE2D4EDF8B0016A522 /* LuisaLabsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D63FD2D4EDF8B0016A522 /* LuisaLabsUITestsLaunchTests.swift */; };
+		7A9D640C2D4EDFE20016A522 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D640B2D4EDFE20016A522 /* AppDelegate.swift */; };
+		7A9D64122D501AF50016A522 /* GitHubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D64112D501AF50016A522 /* GitHubService.swift */; };
+		7A9D64142D501C0A0016A522 /* GitHubResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D64132D501C0A0016A522 /* GitHubResponse.swift */; };
+		7A9D64162D501C400016A522 /* RepositoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D64152D501C400016A522 /* RepositoryError.swift */; };
+		7A9D64182D501C880016A522 /* GitHubRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D64172D501C880016A522 /* GitHubRequest.swift */; };
+		7A9D6A7B2D5020090016A522 /* GitHubRepositoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D6A7A2D5020090016A522 /* GitHubRepositoriesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +43,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A9BEF202D52F97E00ADC745 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		7A9BEF232D52F9DF00ADC745 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		7A9BEF252D52FAFF00ADC745 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		7A9BEF372D53111C00ADC745 /* GitHubEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubEndpoints.swift; sourceTree = "<group>"; };
 		7A9D63DD2D4EDF890016A522 /* LuisaLabs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuisaLabs.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A9D63E02D4EDF890016A522 /* LuisaLabsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuisaLabsApp.swift; sourceTree = "<group>"; };
-		7A9D63E22D4EDF890016A522 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7A9D63E22D4EDF890016A522 /* GitHubRepositoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepositoriesViewModel.swift; sourceTree = "<group>"; };
 		7A9D63E42D4EDF8B0016A522 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A9D63E72D4EDF8B0016A522 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7A9D63ED2D4EDF8B0016A522 /* LuisaLabsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LuisaLabsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +56,12 @@
 		7A9D63F72D4EDF8B0016A522 /* LuisaLabsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LuisaLabsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A9D63FB2D4EDF8B0016A522 /* LuisaLabsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuisaLabsUITests.swift; sourceTree = "<group>"; };
 		7A9D63FD2D4EDF8B0016A522 /* LuisaLabsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuisaLabsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		7A9D640B2D4EDFE20016A522 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7A9D64112D501AF50016A522 /* GitHubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubService.swift; sourceTree = "<group>"; };
+		7A9D64132D501C0A0016A522 /* GitHubResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubResponse.swift; sourceTree = "<group>"; };
+		7A9D64152D501C400016A522 /* RepositoryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryError.swift; sourceTree = "<group>"; };
+		7A9D64172D501C880016A522 /* GitHubRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRequest.swift; sourceTree = "<group>"; };
+		7A9D6A7A2D5020090016A522 /* GitHubRepositoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepositoriesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,12 +89,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A9BEF222D52F9C000ADC745 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				7A9BEF232D52F9DF00ADC745 /* Coordinator.swift */,
+				7A9BEF252D52FAFF00ADC745 /* AppCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		7A9BEF2D2D530A4D00ADC745 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		7A9D63D42D4EDF890016A522 = {
 			isa = PBXGroup;
 			children = (
+				7A9BEF2D2D530A4D00ADC745 /* Core */,
+				7A9D640A2D4EDFC10016A522 /* Tests */,
 				7A9D63DF2D4EDF890016A522 /* LuisaLabs */,
-				7A9D63F02D4EDF8B0016A522 /* LuisaLabsTests */,
-				7A9D63FA2D4EDF8B0016A522 /* LuisaLabsUITests */,
 				7A9D63DE2D4EDF890016A522 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -94,10 +128,13 @@
 		7A9D63DF2D4EDF890016A522 /* LuisaLabs */ = {
 			isa = PBXGroup;
 			children = (
-				7A9D63E02D4EDF890016A522 /* LuisaLabsApp.swift */,
-				7A9D63E22D4EDF890016A522 /* ContentView.swift */,
+				7A9BEF222D52F9C000ADC745 /* Coordinator */,
+				7A9D6A792D501FE70016A522 /* Presentation */,
+				7A9D64102D501AE40016A522 /* Data */,
 				7A9D63E42D4EDF8B0016A522 /* Assets.xcassets */,
 				7A9D63E62D4EDF8B0016A522 /* Preview Content */,
+				7A9D640B2D4EDFE20016A522 /* AppDelegate.swift */,
+				7A9BEF202D52F97E00ADC745 /* SceneDelegate.swift */,
 			);
 			path = LuisaLabs;
 			sourceTree = "<group>";
@@ -127,6 +164,60 @@
 			path = LuisaLabsUITests;
 			sourceTree = "<group>";
 		};
+		7A9D640A2D4EDFC10016A522 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				7A9D63F02D4EDF8B0016A522 /* LuisaLabsTests */,
+				7A9D63FA2D4EDF8B0016A522 /* LuisaLabsUITests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		7A9D640F2D4EE2540016A522 /* GitHubRepositories */ = {
+			isa = PBXGroup;
+			children = (
+				7A9D63E22D4EDF890016A522 /* GitHubRepositoriesViewModel.swift */,
+				7A9D6A7A2D5020090016A522 /* GitHubRepositoriesView.swift */,
+			);
+			path = GitHubRepositories;
+			sourceTree = "<group>";
+		};
+		7A9D64102D501AE40016A522 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				7A9D64192D501DA40016A522 /* DataModels */,
+				7A9D64112D501AF50016A522 /* GitHubService.swift */,
+				7A9BEF372D53111C00ADC745 /* GitHubEndpoints.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		7A9D64192D501DA40016A522 /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+				7A9D64132D501C0A0016A522 /* GitHubResponse.swift */,
+				7A9D64152D501C400016A522 /* RepositoryError.swift */,
+				7A9D64172D501C880016A522 /* GitHubRequest.swift */,
+			);
+			path = DataModels;
+			sourceTree = "<group>";
+		};
+		7A9D6A792D501FE70016A522 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				7A9D6A7C2D50206C0016A522 /* Extensions */,
+				7A9D640F2D4EE2540016A522 /* GitHubRepositories */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		7A9D6A7C2D50206C0016A522 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +234,8 @@
 			dependencies = (
 			);
 			name = LuisaLabs;
+			packageProductDependencies = (
+			);
 			productName = LuisaLabs;
 			productReference = 7A9D63DD2D4EDF890016A522 /* LuisaLabs.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +308,9 @@
 				Base,
 			);
 			mainGroup = 7A9D63D42D4EDF890016A522;
+			packageReferences = (
+				7A9BEF322D530EC600ADC745 /* XCRemoteSwiftPackageReference "Moya" */,
+			);
 			productRefGroup = 7A9D63DE2D4EDF890016A522 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -257,8 +353,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A9D63E32D4EDF890016A522 /* ContentView.swift in Sources */,
-				7A9D63E12D4EDF890016A522 /* LuisaLabsApp.swift in Sources */,
+				7A9D64162D501C400016A522 /* RepositoryError.swift in Sources */,
+				7A9BEF242D52F9DF00ADC745 /* Coordinator.swift in Sources */,
+				7A9D64122D501AF50016A522 /* GitHubService.swift in Sources */,
+				7A9D64182D501C880016A522 /* GitHubRequest.swift in Sources */,
+				7A9BEF382D53111C00ADC745 /* GitHubEndpoints.swift in Sources */,
+				7A9BEF262D52FAFF00ADC745 /* AppCoordinator.swift in Sources */,
+				7A9D640C2D4EDFE20016A522 /* AppDelegate.swift in Sources */,
+				7A9D64142D501C0A0016A522 /* GitHubResponse.swift in Sources */,
+				7A9D6A7B2D5020090016A522 /* GitHubRepositoriesView.swift in Sources */,
+				7A9D63E32D4EDF890016A522 /* GitHubRepositoriesViewModel.swift in Sources */,
+				7A9BEF212D52F97E00ADC745 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +693,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7A9BEF322D530EC600ADC745 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 7A9D63D52D4EDF890016A522 /* Project object */;
 }

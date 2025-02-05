@@ -1,8 +1,8 @@
 //
 //  ContentView.swift
-//  LuisaLabs
+//  Components
 //
-//  Created by george.apostolakis on 01/02/25.
+//  Created by george.apostolakis on 04/02/25.
 //
 
 import SwiftUI
