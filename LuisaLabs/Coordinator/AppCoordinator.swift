@@ -23,6 +23,8 @@ class AppCoordinator: Coordinator {
 
     func start() {
         let controller = UIHostingController(rootView: GitHubRepositoriesView())
-        navigationController.pushViewController(controller, animated: true)
+        navigationController.viewControllers = [controller]
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
     }
 }

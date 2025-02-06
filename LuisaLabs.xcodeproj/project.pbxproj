@@ -11,6 +11,7 @@
 		7A9BEF242D52F9DF00ADC745 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9BEF232D52F9DF00ADC745 /* Coordinator.swift */; };
 		7A9BEF262D52FAFF00ADC745 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9BEF252D52FAFF00ADC745 /* AppCoordinator.swift */; };
 		7A9BEF382D53111C00ADC745 /* GitHubEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9BEF372D53111C00ADC745 /* GitHubEndpoints.swift */; };
+		7A9BEF3B2D54D3A000ADC745 /* RepositoryWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9BEF3A2D54D3A000ADC745 /* RepositoryWebView.swift */; };
 		7A9D63E32D4EDF890016A522 /* GitHubRepositoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D63E22D4EDF890016A522 /* GitHubRepositoriesViewModel.swift */; };
 		7A9D63E52D4EDF8B0016A522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A9D63E42D4EDF8B0016A522 /* Assets.xcassets */; };
 		7A9D63E82D4EDF8B0016A522 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A9D63E72D4EDF8B0016A522 /* Preview Assets.xcassets */; };
@@ -47,6 +48,8 @@
 		7A9BEF232D52F9DF00ADC745 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		7A9BEF252D52FAFF00ADC745 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		7A9BEF372D53111C00ADC745 /* GitHubEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubEndpoints.swift; sourceTree = "<group>"; };
+		7A9BEF3A2D54D3A000ADC745 /* RepositoryWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryWebView.swift; sourceTree = "<group>"; };
+		7A9BF32C2D552CA000ADC745 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7A9D63DD2D4EDF890016A522 /* LuisaLabs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuisaLabs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A9D63E22D4EDF890016A522 /* GitHubRepositoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepositoriesViewModel.swift; sourceTree = "<group>"; };
 		7A9D63E42D4EDF8B0016A522 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -105,6 +108,14 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		7A9BEF392D54D38800ADC745 /* RepositoryWebView */ = {
+			isa = PBXGroup;
+			children = (
+				7A9BEF3A2D54D3A000ADC745 /* RepositoryWebView.swift */,
+			);
+			path = RepositoryWebView;
+			sourceTree = "<group>";
+		};
 		7A9D63D42D4EDF890016A522 = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +139,7 @@
 		7A9D63DF2D4EDF890016A522 /* LuisaLabs */ = {
 			isa = PBXGroup;
 			children = (
+				7A9BF32C2D552CA000ADC745 /* Info.plist */,
 				7A9BEF222D52F9C000ADC745 /* Coordinator */,
 				7A9D6A792D501FE70016A522 /* Presentation */,
 				7A9D64102D501AE40016A522 /* Data */,
@@ -205,6 +217,7 @@
 		7A9D6A792D501FE70016A522 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				7A9BEF392D54D38800ADC745 /* RepositoryWebView */,
 				7A9D6A7C2D50206C0016A522 /* Extensions */,
 				7A9D640F2D4EE2540016A522 /* GitHubRepositories */,
 			);
@@ -364,6 +377,7 @@
 				7A9D6A7B2D5020090016A522 /* GitHubRepositoriesView.swift in Sources */,
 				7A9D63E32D4EDF890016A522 /* GitHubRepositoriesViewModel.swift in Sources */,
 				7A9BEF212D52F97E00ADC745 /* SceneDelegate.swift in Sources */,
+				7A9BEF3B2D54D3A000ADC745 /* RepositoryWebView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,7 +544,7 @@
 				DEVELOPMENT_TEAM = AV4222C43M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = LuisaLabs/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -559,7 +573,7 @@
 				DEVELOPMENT_TEAM = AV4222C43M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = LuisaLabs/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

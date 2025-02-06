@@ -16,7 +16,6 @@ extension GitHubService {
         .init(
             fetchRepositories: {
                 let url = try GitHubEndpoints.fetchRepositories($0)
-                print("URL: \(url)")
 
                 let (data, _) = try await URLSession.shared.data(from: url)
 

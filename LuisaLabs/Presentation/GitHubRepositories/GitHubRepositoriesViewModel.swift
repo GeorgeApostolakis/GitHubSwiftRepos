@@ -10,12 +10,14 @@ import SwiftUI
 
 // MARK: - ViewModel
 class ViewModel: ObservableObject {
+    // MARK: - Properties & init
     @Published var viewState: GitHubRepositoriesView.ScreenState = .loading
     @Published var total = 0
     @Published var showContents = 0
     @Published var backValueDisable = true
     @Published var forwardValueDisable = false
     @Published var repos: [GitHubRepositoryResponse] = []
+    var sheetUrl: String? = nil
 
     private var currentPage: Int = 1
     private var resultPerPage: Int = 30
@@ -31,6 +33,7 @@ class ViewModel: ObservableObject {
         self.service = service
     }
 
+    // MARK: - Internal Methods
     private func buildRequest() -> GitHubRequest {
         .init(
             query: query,
@@ -41,21 +44,25 @@ class ViewModel: ObservableObject {
         )
     }
 
+    @MainActor
+    private func publishesResult(response: GitHubResponse) async {
+        let currentItemCount = itemsInPreviousPages + (response.items?.count ?? 0)
+        viewState = .content
+        total = response.totalCount ?? 0
+        showContents = currentItemCount
+        backValueDisable = currentPage == 1
+        forwardValueDisable = response.totalCount ?? 0 < currentItemCount
+        repos = response.items ?? []
+    }
+
+    // MARK: - Methods
     func fetchRepositories() async {
-        print("fetch")
-        viewState = .loading
+        await MainActor.run { viewState = .loading }
         do {
             let response = try await service.fetchRepositories(buildRequest())
-            print("fetch: \(response)")
-            let currentItemCount = itemsInPreviousPages + (response.items?.count ?? 0)
-            viewState = .content
-            total = response.totalCount ?? 0
-            showContents = currentItemCount
-            backValueDisable = currentPage == 1
-            forwardValueDisable = response.totalCount ?? 0 < currentItemCount
-            repos = response.items ?? []
+            await publishesResult(response: response)
         } catch {
-            viewState = .error(error.localizedDescription)
+            await MainActor.run { viewState = .error(error.localizedDescription) }
         }
     }
 
@@ -72,5 +79,3 @@ class ViewModel: ObservableObject {
         await fetchRepositories()
     }
 }
-
-// MARK: - Models

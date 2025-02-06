@@ -24,6 +24,7 @@ struct GitHubRepositoriesView: View {
     }
 
     @StateObject private var viewModel = ViewModel()
+    @State private var isSheetPresented = false
 
     var body: some View {
         VStack {
@@ -80,53 +81,65 @@ struct GitHubRepositoriesView: View {
     private func buildList() -> some View {
         List {
             ForEach(viewModel.repos) { repository in
-                HStack {
-                    VStack {
-                        if let url = URL(string: repository.owner?.avatarUrl ?? "") {
-                            AsyncImage(url: url) { phase in
-                                if let image = phase.image {
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                } else if phase.error != nil {
-                                    Text("No image available")
-                                } else {
-                                    Image(systemName: "photo")
-                                }
-                            }
-                            .frame(width: 30, height: 30)
-                        } else {
-                            Image(systemName: "photo")
-                            .frame(width: 30, height: 30)
-                        }
-                    }
-                    .padding(.horizontal)
-                    Spacer()
-                    VStack {
-                        HStack {
-                            Text(repository.name ?? "name Not found")
-                                .font(.title)
-                            Spacer()
-                        }
-                        HStack {
-                            Text(repository.description ?? "description not found")
-                                .multilineTextAlignment(.leading)
-                            Spacer()
-                        }
-                    }
-                }
-                .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
-                .listRowSeparator(.hidden)
-                .padding(.vertical)
-                .border(.black)
+                buildListItem(repository)
             }
         }
         .listStyle(.plain)
         .onAppear {
             UIScrollView.appearance().bounces = false
         }
+        .sheet(isPresented: $isSheetPresented) {
+            buildSheetView()
+        }
     }
 
+    private func buildListItem(_ repository: GitHubRepositoryResponse) -> some View {
+        HStack {
+            VStack {
+                if let url = URL(string: repository.owner?.avatarUrl ?? "") {
+                    AsyncImage(url: url) { phase in
+                        if let image = phase.image {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } else if phase.error != nil {
+                            Text("No image available")
+                        } else {
+                            Image(systemName: "photo")
+                        }
+                    }
+                    .frame(width: 30, height: 30)
+                } else {
+                    Image(systemName: "photo")
+                    .frame(width: 30, height: 30)
+                }
+            }
+            .padding(.horizontal)
+            Spacer()
+            VStack {
+                HStack {
+                    Text(repository.name ?? "name Not found")
+                        .font(.title)
+                    Spacer()
+                }
+                HStack {
+                    Text(repository.description ?? "description not found")
+                        .multilineTextAlignment(.leading)
+                    Spacer()
+                }
+            }
+        }
+        .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+        .listRowSeparator(.hidden)
+        .padding(.vertical)
+        .border(.black)
+        .onTapGesture {
+            viewModel.sheetUrl = repository.htmlUrl
+            isSheetPresented = true
+        }
+    }
+
+    // MARK: - EmptyView
     private func buildEmptyView() -> some View {
         VStack {
             Text("Ops")
@@ -136,6 +149,7 @@ struct GitHubRepositoriesView: View {
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
+    // MARK: - ErrorView
     private func buildErrorView(_ errorString: String) -> some View {
         VStack {
             VStack {
@@ -163,6 +177,19 @@ struct GitHubRepositoriesView: View {
             }
         }
         .padding()
+    }
+
+    private func buildSheetView() -> some View {
+        VStack {
+            if let url = URL(string: viewModel.sheetUrl ?? "") {
+                RepositoryWebView(url: url)
+            } else {
+                Text("error")
+                Text("Failed to load url: \(viewModel.sheetUrl ?? "")")
+            }
+        }
+        .presentationDetents([.medium, .large])
+        .presentationDragIndicator(.automatic)
     }
 }
 
