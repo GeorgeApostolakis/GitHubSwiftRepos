@@ -6,6 +6,8 @@
 	<dict>
 		<key>LuisaLabs.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
@@ -92,6 +94,24 @@
 			<false/>
 			<key>orderHint</key>
 			<integer>14</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>7A9D63DC2D4EDF890016A522</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7A9D63EC2D4EDF8B0016A522</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7A9D63F62D4EDF8B0016A522</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
