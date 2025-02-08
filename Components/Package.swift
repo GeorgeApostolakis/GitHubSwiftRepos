@@ -18,7 +18,7 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "Components",
-            dependencies: ["Core"],
+            dependencies: [.product(name: "Core", package: "Core")],
             path: "Sources",
             resources: [
                 .process("Resources/Fonts/Roboto.ttf")
@@ -26,7 +26,11 @@ let package = Package(
         ),
         .testTarget(
             name: "ComponentsTests",
-            dependencies: ["Components", "Core"],
+            dependencies: [
+                "Components",
+                .product(name: "Core", package: "Core"),
+                .product(name: "CoreTestSupport", package: "Core")
+            ],
             path: "Tests"
         ),
     ]

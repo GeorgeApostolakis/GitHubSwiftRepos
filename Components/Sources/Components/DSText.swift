@@ -1,26 +1,45 @@
 //
-//  File.swift
+//  DSText.swift
 //  
 //
 //  Created by george.apostolakis on 07/02/25.
 //
 
+import Core
 import SwiftUI
 
-struct DSText: View {
+public struct DSText: View {
 
     private let string: String
+    private let variant: DSFontStyle
+    private let textColor: DSColor
 
-    init(string: String = "") {
+    public init(_ string: String = "", variant: DSFontStyle = .body, textColor: DSColor = .primary) {
         self.string = string
+        self.variant = variant
+        self.textColor = textColor
     }
 
-    var body: some View {
+    public var body: some View {
         Text(string)
-            .font(.dsFonts(.body))
+            .foregroundStyle(Color.dsColor(textColor))
+            .font(.dsFonts(variant))
     }
 }
 
 #Preview {
-    DSText(string: "Something to put in a label")
+    List {
+        VStack {
+            ForEach(DSFontStyle.allCases, id:\.self) { font in
+                ForEach(DSColor.allCases, id:\.self) { color in
+                    DSText(
+                        "Font: \(String(describing: font)) & Color: \(String(describing: color))",
+                        variant: font,
+                        textColor: color
+                    )
+                    .padding(.vertical)
+                }
+            }
+        }
+    }
 }

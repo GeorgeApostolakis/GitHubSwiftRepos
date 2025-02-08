@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  DSFonts.swift
 //  
 //
 //  Created by george.apostolakis on 07/02/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public enum DSFontStyle {
+public enum DSFontStyle: CaseIterable {
     case header
     case title
     case subtitle
@@ -16,6 +16,10 @@ public enum DSFontStyle {
 }
 
 public extension Font {
+    /// Return a Font from the Design System
+    /// - Parameters:
+    ///   - color: DSFontStyle value
+    /// - Returns: A Font from the DS system
     static func dsFonts(_ style: DSFontStyle) -> Font {
         let fontName = "Roboto"
         switch style {
@@ -29,16 +33,15 @@ public extension Font {
 }
 
 #Preview {
-    VStack(spacing: 10) {
-        Text("Header")
-            .font(.dsFonts(.header))
-        Text("Title")
-            .font(.dsFonts(.title))
-        Text("Subtitle")
-            .font(.dsFonts(.subtitle))
-        Text("Body")
-            .font(.dsFonts(.body))
-        Text("Small")
-            .font(.dsFonts(.small))
+    ScrollView {
+        VStack(spacing: 25) {
+            ForEach(DSFontStyle.allCases, id: \.self) {
+                Text(String(describing: $0).capitalized)
+                    .font(.dsFonts($0))
+            }
+        }
+    }
+    .onAppear {
+        UIScrollView.appearance().bounces = false
     }
 }
