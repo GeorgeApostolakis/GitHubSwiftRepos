@@ -18,14 +18,14 @@ final class DSErrorViewTests: XCTestCase {
     func test_givenGenericError_whenBuildingView_thenAssertSnapshoot() throws {
         let someImage = Image(systemName: "questionmark.text.page")
         let someText = "Some description to a Generic Error"
-        let sut = DSErrorView(errorModel: .generic(someImage, someText))
+        let sut = DSErrorView(errorModel: .generic(someImage, someText, nil))
         try assertSnapShoot(matching: sut.embeddedInView())
     }
 
     func test_givenGenericErrorAndRetryAction_whenBuildingView_thenAssertSnapshoot() throws {
         let someImage = Image(systemName: "questionmark.text.page")
         let someText = "Some description to a Generic Error"
-        let sut = DSErrorView(errorModel: .generic(someImage, someText), retryAction: {})
+        let sut = DSErrorView(errorModel: .generic(someImage, someText, nil))
         try assertSnapShoot(matching: sut.embeddedInView())
     }
 }

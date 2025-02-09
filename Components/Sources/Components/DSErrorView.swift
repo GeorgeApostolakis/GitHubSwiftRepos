@@ -8,14 +8,10 @@
 import SwiftUI
 
 public struct DSErrorView: View {
-    private typealias Action = () -> Void
-
     private let errorModel: Model
-    private let retryAction: Action?
 
-    public init(errorModel: Model, retryAction: (() -> Void)? = nil) {
+    public init(errorModel: Model) {
         self.errorModel = errorModel
-        self.retryAction = retryAction
     }
 
     public var body: some View {
@@ -33,7 +29,7 @@ public struct DSErrorView: View {
             .padding()
             .border(Color.dsColor(.primary), width: 0.5)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            if let retryAction {
+            if let retryAction = errorModel.retryAction {
                 DSButton(title: DSStrings.ErrorView.retryButton) {
                     retryAction()
                 }
@@ -48,37 +44,67 @@ public struct DSErrorView: View {
 // MARK: - Model
 public extension DSErrorView {
     enum Model {
-        case generic(Image, String)
-        case badRequest(String)
-        case connection
+        case generic(Image, String, (() -> Void)?)
+        case badRequest(String, (() -> Void)?)
+        case connection((() -> Void)?)
 
         var image: Image {
             switch self {
-            case let .generic(image, _): return image
-            case .badRequest: return Image.badRequest
-            case .connection: return Image.noConnection
+            case let .generic(image, _, _): image
+            case .badRequest: Image.badRequest
+            case .connection: Image.noConnection
             }
         }
 
         var title: String {
             switch self {
-            case .generic: return DSStrings.ErrorView.genericTitle
-            case .badRequest: return DSStrings.ErrorView.badRequestTitle
-            case .connection: return DSStrings.ErrorView.connectionTitle
+            case .generic: DSStrings.ErrorView.genericTitle
+            case .badRequest: DSStrings.ErrorView.badRequestTitle
+            case .connection: DSStrings.ErrorView.connectionTitle
             }
         }
 
         var subtitle: String {
             switch self {
-            case let .generic(_, string): return string
-            case let .badRequest(string): return string
-            case .connection: return DSStrings.ErrorView.connectionSubTitle
+            case let .generic(_, string, _): string
+            case let .badRequest(string, _): string
+            case .connection: DSStrings.ErrorView.connectionSubTitle
+            }
+        }
+
+        var retryAction: (() -> Void)? {
+            switch self {
+            case let .generic(_, _, retryAction): return retryAction
+            case let .badRequest(_, retryAction): return retryAction
+            case let .connection(retryAction): return retryAction
             }
         }
     }
 }
 
-#Preview {
-    DSErrorView(errorModel: .connection, retryAction: {})
+// MARK: - Preview
+#Preview("Generic") {
+    DSErrorView(
+        errorModel: .generic(
+            Image.negativeFeedback,
+            "Some generic description about an generic error",
+            {}
+        )
+    )
+        .frame(width: .infinity, height: .infinity)
+}
+
+#Preview("BadRequest") {
+    DSErrorView(errorModel: .badRequest("Some description about the error", {}))
+        .frame(width: .infinity, height: .infinity)
+}
+
+#Preview("Connection") {
+    DSErrorView(errorModel: .connection({}))
+        .frame(width: .infinity, height: .infinity)
+}
+
+#Preview("BadRequestWithoutButton") {
+    DSErrorView(errorModel: .badRequest("Some description about the error", nil))
         .frame(width: .infinity, height: .infinity)
 }
