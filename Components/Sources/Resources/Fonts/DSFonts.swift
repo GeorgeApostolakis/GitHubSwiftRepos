@@ -26,8 +26,8 @@ public extension Font {
         case .header: return Font.custom(fontName, size: 28)
         case .title: return Font.custom(fontName, size: 24)
         case .subtitle: return Font.custom(fontName, size: 20)
-        case .body: return Font.custom(fontName, size: 14)
-        case .small: return Font.custom(fontName, size: 10)
+        case .body: return Font.custom(fontName, size: 16)
+        case .small: return Font.custom(fontName, size: 14)
         }
     }
 }

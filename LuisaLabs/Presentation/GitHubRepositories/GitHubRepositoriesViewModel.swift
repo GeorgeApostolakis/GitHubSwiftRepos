@@ -5,19 +5,20 @@
 //  Created by george.apostolakis on 01/02/25.
 //
 
+import Components
 import SwiftUI
 
 
 // MARK: - ViewModel
 class ViewModel: ObservableObject {
     // MARK: - Properties & init
-    @Published var viewState: GitHubRepositoriesView.ScreenState = .loading
-    @Published var total = 0
-    @Published var showContents = 0
-    @Published var backValueDisable = true
-    @Published var forwardValueDisable = false
+    @Published var viewState: ScreenState = .loading
     @Published var repos: [GitHubRepositoryResponse] = []
     var sheetUrl: String? = nil
+    var total: Int = 0
+    var showContents: Int = 0
+    var backValueDisable = true
+    var forwardValueDisable = false
 
     private var currentPage: Int = 1
     private var resultPerPage: Int = 30
@@ -46,6 +47,20 @@ class ViewModel: ObservableObject {
 
     @MainActor
     private func publishesResult(response: GitHubResponse) async {
+        guard let items = response.items, items.count > 0 else {
+            viewState = .error(
+                .badRequest(
+                    response.message ?? AppStrings.Repository.Error.noReposFoundError,
+                    { [weak self] in
+                        guard let self else { return }
+                        Task {
+                            await self.fetchRepositories()
+                        }
+                    }
+                )
+            )
+            return
+        }
         let currentItemCount = itemsInPreviousPages + (response.items?.count ?? 0)
         viewState = .content
         total = response.totalCount ?? 0
@@ -62,7 +77,19 @@ class ViewModel: ObservableObject {
             let response = try await service.fetchRepositories(buildRequest())
             await publishesResult(response: response)
         } catch {
-            await MainActor.run { viewState = .error(error.localizedDescription) }
+            await MainActor.run {
+                viewState = .error(
+                    .badRequest(
+                        error.localizedDescription,
+                        { [weak self] in
+                            guard let self else { return }
+                            Task {
+                                await self.fetchRepositories()
+                            }
+                        }
+                    )
+                )
+            }
         }
     }
 

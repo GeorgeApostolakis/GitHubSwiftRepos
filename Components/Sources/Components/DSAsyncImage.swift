@@ -24,8 +24,8 @@ public struct DSAsyncImage: View {
     public init(
         urlString: String,
         size: Size = .small,
-        errorView: @escaping () -> AnyView,
-        placeholder: @escaping () -> Image
+        errorView: @escaping () -> AnyView = { Image.negativeFeedback.eraseToAnyView() },
+        placeholder: @escaping () -> Image = { Image.emptyImage }
     ) {
         self.urlString = urlString
         self.size = size.size
@@ -63,7 +63,7 @@ public struct DSAsyncImage: View {
     }
 
     private func buildErrorView(_ errorString: String) -> AnyView {
-        print("DSAsyncImage failed to load image, error: \(errorString)")
+        print("DSAsyncImage failed to load image, url: \(urlString), error: \(errorString)")
         return errorView()
     }
 }

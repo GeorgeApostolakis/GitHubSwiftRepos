@@ -11,6 +11,8 @@ struct GitHubResponse: Decodable {
     let totalCount: Int?
     let incompleteResults: Bool?
     let items: [GitHubRepositoryResponse]?
+
+    let message: String?
 }
 
 struct GitHubRepositoryResponse: Decodable, Identifiable {

@@ -9,12 +9,12 @@ import Core
 import SwiftUI
 
 public struct DSScreenView<Content: View>: View {
-    @Binding private var state: State
+    @Binding private var state: ScreenState
     private let content: () -> Content
     private let loadingView: () -> AnyView
 
     public init(
-        state: Binding<State>,
+        state: Binding<ScreenState>,
         content: @escaping () -> Content,
         loadingView: @escaping () -> AnyView =  { ProgressView().eraseToAnyView() }
     ) {
@@ -37,12 +37,11 @@ public struct DSScreenView<Content: View>: View {
     }
 }
 
-public extension DSScreenView {
-    enum State {
-        case content
-        case loading
-        case error(DSErrorView.Model)
-    }
+// MARK: - State
+public enum ScreenState {
+    case content
+    case loading
+    case error(DSErrorView.Model)
 }
 
 // MARK: - Preview

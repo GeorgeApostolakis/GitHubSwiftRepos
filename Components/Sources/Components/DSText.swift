@@ -30,6 +30,8 @@ public struct DSText: View {
         Text(string)
             .foregroundStyle(Color.dsColor(textColor))
             .font(.dsFonts(variant))
+            .multilineTextAlignment(.leading)
+            .lineLimit(nil)
     }
 }
 

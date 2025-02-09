@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension Image {
+public extension Image {
     static var negativeFeedback = Image(systemName: "x.circle")
     static var emptyImage = Image(systemName: "photo")
     static var noConnection = Image(systemName: "wifi.slash")

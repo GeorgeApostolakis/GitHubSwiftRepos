@@ -9,8 +9,9 @@ import SwiftUI
 
 public struct DSButton: View {
 
-    private let variant: Variant
+    private let variant: DSButtonVariant
     private let title: String
+    private let size: DSFontStyle
     @Binding private var isLoading: Bool
     @Binding private var isDisable: Bool
     private let action: () -> Void
@@ -23,15 +24,17 @@ public struct DSButton: View {
     ///   - isLoading: for  controlling the  loading state of the button. Default is `.constant(false)`.
     ///   - isDisable: for  controlling disable state of the button. Default is `.constant(false)`.
     ///   - action: A closure to be executed when the button is pressed.
-    init(
+    public init(
         title: String,
-        variant: Variant = .fill,
+        variant: DSButtonVariant = .fill,
+        size: DSFontStyle = .title,
         isLoading: Binding<Bool> = .constant(false),
         isDisable: Binding<Bool> = .constant(false),
         action: @escaping () -> Void
     ) {
         self.variant = variant
         self.title = title
+        self.size = size
         _isLoading = isLoading
         _isDisable = isDisable
         self.action = action
@@ -49,16 +52,15 @@ public struct DSButton: View {
         .disabled(isDisable || isLoading)
     }
 
-    @ViewBuilder
     private var buttonBody: some View {
         if isDisable {
-            DSText(title, variant: .title, textColor: variant.disableTextColor)
+            DSText(title, variant: size, textColor: variant.disableTextColor)
                 .padding()
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
                 .background(variant.disableBackgroundColor)
                 .cornerRadius(25)
         } else {
-            DSText(title, variant: .title, textColor: variant.textColor)
+            DSText(title, variant: size, textColor: variant.textColor)
                 .padding()
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
                 .background(variant.backgroundColor)
@@ -72,44 +74,49 @@ public struct DSButton: View {
     }
 }
 
-public extension DSButton {
-    enum Variant {
-        case fill
-        case text
+public enum DSButtonVariant {
+    case fill
+    case text
+    case image(Image)
 
-        var textColor: DSColor {
-            switch self {
-            case .fill: return .reverseColor
-            case .text: return .primary
-            }
+    var textColor: DSColor {
+        switch self {
+        case .fill: return .reverseColor
+        case .text: return .primary
+        case .image: return .clear
         }
+    }
 
-        var backgroundColor: Color {
-            switch self {
-            case .fill: return Color.dsColor(.contrast)
-            case .text: return Color.dsColor(.clear)
-            }
+    var backgroundColor: Color {
+        switch self {
+        case .fill: return Color.dsColor(.contrast)
+        case .text, .image: return Color.dsColor(.clear)
         }
+    }
 
-        var disableTextColor: DSColor {
-            switch self {
-            case .fill, .text: return .reverseColor
-            }
+    var disableTextColor: DSColor {
+        switch self {
+        case .fill, .text: return .reverseColor
+        case .image: return .clear
         }
+    }
 
-        var disableBackgroundColor: Color {
-            switch self {
-            case .fill: return Color.dsColor(.lightContrast)
-            case .text: return Color.dsColor(.clear)
-            }
+    var disableBackgroundColor: Color {
+        switch self {
+        case .fill: return Color.dsColor(.lightContrast)
+        case .text, .image: return Color.dsColor(.clear)
         }
     }
 }
 
 #Preview {
     VStack {
+        DSButton(title: "Fill Header", size: .header) {}
         DSButton(title: "Fill") {}
+        DSButton(title: "Fill Small", size: .small) {}
+        DSButton(title: "Text Header", variant: .text, size: .header) {}
         DSButton(title: "Text", variant: .text) {}
+        DSButton(title: "Text Small", variant: .text, size: .small) {}
         DSButton(title: "isLoading", variant: .text, isLoading: .constant(true)) {}
         DSButton(title: "isDisable and Fill", isDisable: .constant(true)) {}
         DSButton(title: "isDisable and Text", variant: .text, isDisable: .constant(true)) {}
