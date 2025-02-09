@@ -14,6 +14,12 @@ public struct DSText: View {
     private let variant: DSFontStyle
     private let textColor: DSColor
 
+    /// Creates a customizable DSText.
+    ///
+    /// - Parameters:
+    ///   - string: The text displayed on the button.
+    ///   - variant: The font style variant, default is `.body`.
+    ///   - textColor: The color of the font, default is `.primary`.
     public init(_ string: String = "", variant: DSFontStyle = .body, textColor: DSColor = .primary) {
         self.string = string
         self.variant = variant

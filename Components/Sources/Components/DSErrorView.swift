@@ -25,26 +25,23 @@ public struct DSErrorView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 100, height: 100)
-                    .foregroundStyle(.gray)
-                DSText(errorModel.title, variant: .header)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color.dsColor(.lightContrast))
+                DSText(errorModel.title, variant: .header, textColor: .primary)
                     .multilineTextAlignment(.center)
                 DSText(errorModel.subtitle, variant: .body)
-                    .foregroundStyle(.gray)
             }
             .padding()
-            .border(.black, width: 0.5)
+            .border(Color.dsColor(.primary), width: 0.5)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             if let retryAction {
-                Button { retryAction() } label: {
-                    DSText("Tentar Novamente", variant: .title)
-                        .padding(.all, 35)
-                        .border(.black)
-                        .clipShape(.rect(cornerRadius: 12))
-                        .frame(maxWidth: .infinity, alignment: .bottom)
-                }.fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                DSButton(title: DSStrings.ErrorView.retryButton) {
+                    retryAction()
+                }
+                .frame(maxWidth: .infinity, alignment: .bottom)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding()
+        .background(Color.dsColor(.reverseColor))
     }
 }
 
@@ -83,5 +80,5 @@ public extension DSErrorView {
 
 #Preview {
     DSErrorView(errorModel: .connection, retryAction: {})
-        .frame(width: 360, height: 800)
+        .frame(width: .infinity, height: .infinity)
 }

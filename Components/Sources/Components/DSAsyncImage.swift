@@ -14,6 +14,13 @@ public struct DSAsyncImage: View {
     let placeholder: () -> Image
     let size: CGSize
 
+    /// Creates a customizable DSAsyncImage.
+    ///
+    /// - Parameters:
+    ///   - urlString: the url string to get the image to be displayed.
+    ///   - size: the size of the image to be displayed.
+    ///   - errorView: the `View` that will be displayed when an error is returned.
+    ///   - placeHolder: the `Image` that will be displayed before / while the load operation.
     public init(
         urlString: String,
         size: Size = .small,

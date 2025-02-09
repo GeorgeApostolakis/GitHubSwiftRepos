@@ -15,6 +15,7 @@ public enum DSColor: CaseIterable {
     case lightContrast
     case contrast
     case darkContrast
+    case clear
 }
 
 public extension Color {
@@ -29,6 +30,7 @@ public extension Color {
         case .lightContrast: return .init(red: 87/255, green: 108/255, blue: 168/255)
         case .contrast: return .init(red: 39/255, green: 70/255, blue: 144/255)
         case .darkContrast: return .init(red: 27/255, green: 38/255, blue: 79/255)
+        case .clear: return Color.clear
         }
     }
 }

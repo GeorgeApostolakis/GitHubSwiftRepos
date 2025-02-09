@@ -13,5 +13,6 @@ enum DSStrings {
         static var connectionTitle = "Ops, sem conexão com a internet"
         static var connectionSubTitle = "Não foi possível estabelecer conexão com a internet."
         static var badRequestTitle = "Ocorreu um erro aqui!"
+        static var retryButton = "Tentar Novamente"
     }
 }
