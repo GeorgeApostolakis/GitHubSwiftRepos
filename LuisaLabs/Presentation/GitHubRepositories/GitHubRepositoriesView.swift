@@ -38,7 +38,7 @@ struct GitHubRepositoriesView: View {
                 await viewModel.fetchRepositories()
             }
         }
-        .navigationTitle(AppStrings.Repository.title)
+        .navigationBarHidden(true)
     }
 
     // MARK: - ContentView
