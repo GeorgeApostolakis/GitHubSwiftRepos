@@ -93,12 +93,14 @@ class ViewModel: ObservableObject {
         }
     }
 
+    @MainActor
     func navigateForward() async {
         currentPage += 1
         viewState = .loading
         await fetchRepositories()
     }
 
+    @MainActor
     func navigateBack() async {
         guard currentPage > 1 else { return }
         currentPage -= 1
