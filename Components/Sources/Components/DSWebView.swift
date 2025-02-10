@@ -22,6 +22,7 @@ public struct DSWebView: UIViewRepresentable {
     }
 
     public func updateUIView(_ wkWebView: WKWebView, context: Context) {
+        print("DSWebView is loading: ", url.absoluteString)
         wkWebView.load(URLRequest(url: url))
     }
 }

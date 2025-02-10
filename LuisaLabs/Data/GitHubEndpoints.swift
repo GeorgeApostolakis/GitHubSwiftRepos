@@ -20,4 +20,19 @@ enum GitHubEndpoints {
         }
         return url
     }
+
+    // "https://api.github.com/repos/creator/repo/pulls?state=all"
+    static func pullRequests(creator: String, repo: String) throws -> URL {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.github.com"
+        components.path = "/repos/\(creator)/\(repo)/pulls"
+        components.queryItems = [
+            URLQueryItem(name: "state", value: "all")
+        ]
+        guard let url = components.url else {
+            throw RepositoryError.incompleteUrl
+        }
+        return url
+    }
 }

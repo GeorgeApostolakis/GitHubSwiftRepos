@@ -14,19 +14,14 @@ class ViewModel: ObservableObject {
     // MARK: - Properties & init
     @Published var viewState: ScreenState = .loading
     @Published var repos: [GitHubRepositoryResponse] = []
+    @Published var scrollViewIsLoading: Bool = false
+
     var sheetUrl: String?
     var total: Int = 0
     var showContents: Int = 0
-    var backValueDisable = true
-    var forwardValueDisable = false
 
     private var currentPage: Int = 1
-    private var resultPerPage: Int = 30
-    private var itemsInPreviousPages: Int {
-        (currentPage - 1) * resultPerPage
-    }
-    private var language: GitHubRequest.CodeLanguage = .swift
-    private var sortBy: GitHubRequest.SortParameters = .stars
+
     private var query: GitHubRequest.GitHubQuery = .init()
     private let service: GitHubService
 
@@ -38,15 +33,12 @@ class ViewModel: ObservableObject {
     private func buildRequest() -> GitHubRequest {
         .init(
             query: query,
-            sort: sortBy,
-            language: language,
-            page: currentPage,
-            resultsPerPage: resultPerPage
+            page: currentPage
         )
     }
 
     @MainActor
-    private func publishesResult(response: GitHubResponse) async {
+    private func publishesResult(response: GitHubResponse, isNextPage: Bool) async {
         guard let items = response.items, !items.isEmpty else {
             viewState = .error(
                 .badRequest(
@@ -61,21 +53,29 @@ class ViewModel: ObservableObject {
             )
             return
         }
-        let currentItemCount = itemsInPreviousPages + (response.items?.count ?? 0)
-        viewState = .content
+        if isNextPage {
+            scrollViewIsLoading = false
+        } else {
+            viewState = .content
+        }
         total = response.totalCount ?? 0
-        showContents = currentItemCount
-        backValueDisable = currentPage == 1
-        forwardValueDisable = response.totalCount ?? 0 < currentItemCount
-        repos = response.items ?? []
+        repos.append(contentsOf: items)
+        showContents = repos.count
     }
 
     // MARK: - Methods
-    func fetchRepositories() async {
-        await MainActor.run { viewState = .loading }
+    func fetchRepositories(isNextPage: Bool = false) async {
+        await MainActor.run {
+            if isNextPage {
+                scrollViewIsLoading = true
+            } else {
+                viewState = .loading
+            }
+        }
         do {
             let response = try await service.fetchRepositories(buildRequest())
-            await publishesResult(response: response)
+            await publishesResult(response: response, isNextPage: isNextPage)
+
         } catch {
             await MainActor.run {
                 viewState = .error(
@@ -94,17 +94,17 @@ class ViewModel: ObservableObject {
     }
 
     @MainActor
-    func navigateForward() async {
+    func requestMoreItemsIfNeeded(_ index: Int) async {
+        guard shouldRequestMoreItems(index) else { return }
+        scrollViewIsLoading = true
         currentPage += 1
-        viewState = .loading
-        await fetchRepositories()
+        await fetchRepositories(isNextPage: true)
     }
 
-    @MainActor
-    func navigateBack() async {
-        guard currentPage > 1 else { return }
-        currentPage -= 1
-        viewState = .loading
-        await fetchRepositories()
+    private func shouldRequestMoreItems(_ index: Int) -> Bool {
+        let theFirstRequestIsAlreadyDisplayed = showContents > 0
+        let hasReachedNearTheEndOfTheScroll = index == (showContents - 6)
+        let hasMoreItems = showContents < total
+        return theFirstRequestIsAlreadyDisplayed && hasReachedNearTheEndOfTheScroll && hasMoreItems
     }
 }

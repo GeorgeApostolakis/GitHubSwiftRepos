@@ -20,6 +20,9 @@ enum AppStrings {
         }
         enum Error {
             static var noReposFoundError = "Nenhum repositório foi encontrado com estes parâmetros de pesquisa"
+            static func invalidUrl(_ urlString: String) -> String {
+                "A url: \(urlString) não é uma url válida"
+            }
         }
     }
 }

@@ -38,7 +38,7 @@ struct GitHubRepositoriesView: View {
                 await viewModel.fetchRepositories()
             }
         }
-        .navigationBarHidden(true)
+        .navigationTitle(AppStrings.Repository.title)
     }
 
     // MARK: - ContentView
@@ -53,16 +53,6 @@ struct GitHubRepositoriesView: View {
 
     private func buildHeader() -> some View {
         HStack {
-            DSButton(
-                title: AppStrings.Repository.Header.less,
-                variant: .text,
-                size: .small,
-                isDisable: $viewModel.backValueDisable
-            ) {
-                Task {
-                    await viewModel.navigateBack()
-                }
-            }.fixedSize()
             DSText(
                 AppStrings.Repository.Header.quantity(
                     current: viewModel.showContents,
@@ -71,32 +61,28 @@ struct GitHubRepositoriesView: View {
                 variant: .subtitle,
                 textColor: .lightContrast
             )
-            DSButton(
-                title: AppStrings.Repository.Header.more,
-                variant: .text,
-                size: .small,
-                isDisable: $viewModel.forwardValueDisable
-            ) {
-                Task {
-                    await viewModel.navigateForward()
-                }
-            }
-            .fixedSize()
-            Spacer()
         }
         .background(Color.dsColor(.reverseColor))
     }
 
     private func buildList() -> some View {
         ScrollView {
-            ForEach(viewModel.repos) { repository in
-                buildListItem(repository)
-                    .background(Color.dsColor(.reverseColor))
+            LazyVStack {
+                ForEach(Array(viewModel.repos.enumerated()), id: \.offset) { index, repository in
+                    buildListItem(repository)
+                        .background(Color.dsColor(.reverseColor))
+                        .onAppear {
+                            Task {
+                                await viewModel.requestMoreItemsIfNeeded(index)
+                            }
+                        }
+                }
+                if viewModel.scrollViewIsLoading {
+                    ProgressView().padding()
+                }
             }
         }
-        .onAppear {
-            UIScrollView.appearance().bounces = false
-        }
+        .background(Color.dsColor(.lightContrast))
         .sheet(isPresented: $isSheetPresented) {
             buildSheetView()
         }
@@ -106,27 +92,47 @@ struct GitHubRepositoriesView: View {
         HStack {
             VStack {
                 DSAsyncImage(urlString: repository.owner?.avatarUrl ?? "")
+                DSText(repository.owner?.login ?? "", variant: .small, textColor: .lightContrast)
             }
             .padding(.horizontal)
             Spacer()
             VStack {
                 HStack {
-                    DSText(repository.name ?? "-", variant: .title)
+                    DSText(repository.name ?? "-", variant: .title, textColor: .darkContrast)
                     Spacer()
                 }
                 HStack {
-                    DSText(repository.description ?? "-", variant: .subtitle)
+                    DSText(repository.description ?? "-", variant: .body)
                         .fixedSize(horizontal: false, vertical: true)
+                    Spacer()
+                }
+                HStack {
+                    buildCounter(image: .forkIcon, count: repository.forksCount?.formatted() ?? "-")
+                    buildCounter(image: .starIcon, count: repository.stargazersCount?.formatted() ?? "-")
+                    Button {
+                        viewModel.sheetUrl = repository.htmlUrl
+                        isSheetPresented = true
+                    } label: {
+                        Image
+                            .githubIcon
+                            .resizable()
+                            .frame(width: 15, height: 15).padding(2).border(Color.dsColor(.primary))
+                    }
                     Spacer()
                 }
             }
         }
         .padding(.vertical)
         .border(Color.dsColor(.primary))
-        .onTapGesture {
-            viewModel.sheetUrl = repository.htmlUrl
-            isSheetPresented = true
+    }
+
+    private func buildCounter(image: Image, count: String) -> some View {
+        HStack(spacing: 4) {
+            image.resizable().frame(width: 15, height: 15)
+            DSText(count)
         }
+        .padding(2)
+        .border(Color.dsColor(.primary))
     }
 
     private func buildSheetView() -> some View {
@@ -134,7 +140,7 @@ struct GitHubRepositoriesView: View {
             if let url = URL(string: viewModel.sheetUrl ?? "") {
                 DSWebView(url: url)
             } else {
-                DSErrorView(errorModel: .badRequest("A url: \(viewModel.sheetUrl ?? "") não é uma url válida", nil))
+                DSErrorView(errorModel: .badRequest(AppStrings.Repository.Error.invalidUrl(viewModel.sheetUrl ?? ""), nil))
             }
         }
         .presentationDetents([.medium, .large])
