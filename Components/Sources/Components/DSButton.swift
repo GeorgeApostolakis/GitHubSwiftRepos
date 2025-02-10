@@ -8,7 +8,6 @@
 import SwiftUI
 
 public struct DSButton: View {
-
     private let variant: DSButtonVariant
     private let title: String
     private let size: DSFontStyle

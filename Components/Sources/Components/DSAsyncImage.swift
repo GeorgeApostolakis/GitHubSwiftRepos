@@ -37,7 +37,7 @@ public struct DSAsyncImage: View {
         if let url = URL(string: urlString) {
             AsyncImage(url: url) { phase in
                 switch phase {
-                case .empty: 
+                case .empty:
                     placeholder()
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -50,8 +50,8 @@ public struct DSAsyncImage: View {
                         .frame(width: size.width, height: size.height)
 
                 case .failure(let error): buildErrorView(error.localizedDescription)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: size.width, height: size.height)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: size.width, height: size.height)
 
                 @unknown default: buildErrorView("DSAsyncImage failed to unknown phase")
                 }
@@ -101,7 +101,6 @@ struct DSAsyncImage_Previews: PreviewProvider {
                     .resizable()
                     .foregroundColor(.red)
                     .eraseToAnyView()
-
             }, placeholder: {
                 Image.emptyImage
             }

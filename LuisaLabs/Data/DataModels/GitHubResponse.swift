@@ -26,6 +26,17 @@ struct GitHubRepositoryResponse: Decodable, Identifiable {
     let topics: [String]?
     let owner: RepositoryOwnerResponse?
 
+    enum CodingKeys: CodingKey {
+        case name
+        case description
+        case htmlUrl
+        case watchersCount
+        case stargazersCount
+        case forkCount
+        case topics
+        case owner
+    }
+
     struct RepositoryOwnerResponse: Decodable {
         let login: String?
         let avatarUrl: String?

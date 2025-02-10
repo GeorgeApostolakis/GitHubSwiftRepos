@@ -19,9 +19,9 @@ let package = Package(
     ],
     dependencies: [
         .package(
-          url: "https://github.com/pointfreeco/swift-snapshot-testing",
-          exact: "1.17.7"
-        ),
+            url: "https://github.com/pointfreeco/swift-snapshot-testing",
+            exact: "1.17.7"
+        )
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -34,13 +34,13 @@ let package = Package(
             name: "CoreTestSupport",
             dependencies: [
                 "Core",
-                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
             ],
             path: "CoreTestSupport"
         ),
         .testTarget(
             name: "CoreTests",
             dependencies: ["Core"]
-        ),
+        )
     ]
 )

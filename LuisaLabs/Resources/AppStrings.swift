@@ -7,6 +7,7 @@
 
 import Core
 
+// swiftlint: disable all
 enum AppStrings {
     enum Repository {
         static var title = "GitHub Swift"
@@ -22,3 +23,4 @@ enum AppStrings {
         }
     }
 }
+// swiftlint: enable all

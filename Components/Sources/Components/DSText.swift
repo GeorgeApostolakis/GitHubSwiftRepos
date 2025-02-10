@@ -9,7 +9,6 @@ import Core
 import SwiftUI
 
 public struct DSText: View {
-
     private let string: String
     private let variant: DSFontStyle
     private let textColor: DSColor
@@ -38,8 +37,8 @@ public struct DSText: View {
 #Preview {
     List {
         VStack {
-            ForEach(DSFontStyle.allCases, id:\.self) { font in
-                ForEach(DSColor.allCases, id:\.self) { color in
+            ForEach(DSFontStyle.allCases, id: \.self) { font in
+                ForEach(DSColor.allCases, id: \.self) { color in
                     DSText(
                         "Font: \(String(describing: font)) & Color: \(String(describing: color))",
                         variant: font,

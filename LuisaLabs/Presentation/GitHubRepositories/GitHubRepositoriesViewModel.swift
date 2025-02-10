@@ -14,7 +14,7 @@ class ViewModel: ObservableObject {
     // MARK: - Properties & init
     @Published var viewState: ScreenState = .loading
     @Published var repos: [GitHubRepositoryResponse] = []
-    var sheetUrl: String? = nil
+    var sheetUrl: String?
     var total: Int = 0
     var showContents: Int = 0
     var backValueDisable = true
@@ -47,7 +47,7 @@ class ViewModel: ObservableObject {
 
     @MainActor
     private func publishesResult(response: GitHubResponse) async {
-        guard let items = response.items, items.count > 0 else {
+        guard let items = response.items, !items.isEmpty else {
             viewState = .error(
                 .badRequest(
                     response.message ?? AppStrings.Repository.Error.noReposFoundError,
