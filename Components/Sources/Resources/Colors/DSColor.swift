@@ -25,11 +25,11 @@ public extension Color {
     /// - Returns: A Color from the DS system
     static func dsColor(_ color: DSColor) -> Color {
         switch color {
-        case .primary: return .init(red: 48/255, green: 43/255, blue: 39/255)
-        case .reverseColor: return .init(red: 245/255, green: 243/255, blue: 245/255)
-        case .lightContrast: return .init(red: 87/255, green: 108/255, blue: 168/255)
-        case .contrast: return .init(red: 39/255, green: 70/255, blue: 144/255)
-        case .darkContrast: return .init(red: 27/255, green: 38/255, blue: 79/255)
+        case .primary: return .init(red: 48 / 255, green: 43 / 255, blue: 39 / 255)
+        case .reverseColor: return .init(red: 245 / 255, green: 243 / 255, blue: 245 / 255)
+        case .lightContrast: return .init(red: 87 / 255, green: 108 / 255, blue: 168 / 255)
+        case .contrast: return .init(red: 39 / 255, green: 70 / 255, blue: 144 / 255)
+        case .darkContrast: return .init(red: 27 / 255, green: 38 / 255, blue: 79 / 255)
         case .clear: return Color.clear
         }
     }

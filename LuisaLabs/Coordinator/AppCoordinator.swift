@@ -10,7 +10,6 @@ import SwiftUI
 import UIKit
 
 class AppCoordinator: Coordinator {
-
     let window: UIWindow
 
     init(window: UIWindow) {

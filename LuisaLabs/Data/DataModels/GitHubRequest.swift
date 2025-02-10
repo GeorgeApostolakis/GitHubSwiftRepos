@@ -16,7 +16,7 @@ struct GitHubRequest {
     let token = "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"
 
     var requestParameters: [URLQueryItem] {
-        var requestParameters: [URLQueryItem] = [
+        let requestParameters: [URLQueryItem] = [
             URLQueryItem(name: "q", value: query.queryString),
             URLQueryItem(name: "sort", value: sort.rawValue),
             URLQueryItem(name: "page", value: page.description),

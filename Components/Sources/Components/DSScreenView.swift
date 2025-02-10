@@ -16,7 +16,7 @@ public struct DSScreenView<Content: View>: View {
     public init(
         state: Binding<ScreenState>,
         content: @escaping () -> Content,
-        loadingView: @escaping () -> AnyView =  { ProgressView().eraseToAnyView() }
+        loadingView: @escaping () -> AnyView = { ProgressView().eraseToAnyView() }
     ) {
         _state = state
         self.content = content

@@ -53,21 +53,35 @@ struct GitHubRepositoriesView: View {
 
     private func buildHeader() -> some View {
         HStack {
-            DSButton(title: AppStrings.Repository.Header.less, variant: .text, size: .small, isDisable: $viewModel.backValueDisable) {
+            DSButton(
+                title: AppStrings.Repository.Header.less,
+                variant: .text,
+                size: .small,
+                isDisable: $viewModel.backValueDisable
+            ) {
                 Task {
                     await viewModel.navigateBack()
                 }
             }.fixedSize()
             DSText(
-                AppStrings.Repository.Header.quantity(current: viewModel.showContents, total: viewModel.total),
+                AppStrings.Repository.Header.quantity(
+                    current: viewModel.showContents,
+                    total: viewModel.total
+                ),
                 variant: .subtitle,
                 textColor: .lightContrast
             )
-            DSButton(title: AppStrings.Repository.Header.more, variant: .text, size: .small, isDisable: $viewModel.forwardValueDisable) {
+            DSButton(
+                title: AppStrings.Repository.Header.more,
+                variant: .text,
+                size: .small,
+                isDisable: $viewModel.forwardValueDisable
+            ) {
                 Task {
                     await viewModel.navigateForward()
                 }
-            }.fixedSize()
+            }
+            .fixedSize()
             Spacer()
         }
         .background(Color.dsColor(.reverseColor))

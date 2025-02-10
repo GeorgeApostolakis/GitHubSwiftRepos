@@ -22,9 +22,9 @@ extension GitHubService {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let response = try decoder.decode(GitHubResponse.self, from: data)
+
                 return response
             }
         )
     }
 }
-

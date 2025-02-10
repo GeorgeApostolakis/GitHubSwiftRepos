@@ -29,4 +29,3 @@ final class DSErrorViewTests: XCTestCase {
         try assertSnapShoot(matching: sut.embeddedInView())
     }
 }
-

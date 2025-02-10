@@ -229,6 +229,7 @@
 				7A9D63D92D4EDF890016A522 /* Sources */,
 				7A9D63DA2D4EDF890016A522 /* Frameworks */,
 				7A9D63DB2D4EDF890016A522 /* Resources */,
+				7AEA786B2D5978B600635628 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -312,9 +313,9 @@
 			);
 			mainGroup = 7A9D63D42D4EDF890016A522;
 			packageReferences = (
-				7A9BEF322D530EC600ADC745 /* XCRemoteSwiftPackageReference "Moya" */,
 				7AACD6772D57F0CE00AC5CF8 /* XCLocalSwiftPackageReference "Components" */,
 				7AACD67A2D57F0DD00AC5CF8 /* XCLocalSwiftPackageReference "Core" */,
+				7AEA786A2D59777500635628 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 			);
 			productRefGroup = 7A9D63DE2D4EDF890016A522 /* Products */;
 			projectDirPath = "";
@@ -352,6 +353,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7AEA786B2D5978B600635628 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nSWIFT_PACKAGE_DIR=\"${BUILD_DIR%Build/*}SourcePackages/artifacts\"\nSWIFTLINT_CMD=$(ls \"$SWIFT_PACKAGE_DIR\"/swiftlintplugins/SwiftLintBinary/SwiftLintBinary.artifactbundle/swiftlint-*-macos/bin/swiftlint | head -n 1)\n\nif test -f \"$SWIFTLINT_CMD\" 2>&1\nthen\n    \"$SWIFTLINT_CMD\"\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7A9D63D92D4EDF890016A522 /* Sources */ = {
@@ -535,6 +558,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"LuisaLabs/Preview Content\"";
 				DEVELOPMENT_TEAM = AV4222C43M;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LuisaLabs/Info.plist;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -563,6 +587,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"LuisaLabs/Preview Content\"";
 				DEVELOPMENT_TEAM = AV4222C43M;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LuisaLabs/Info.plist;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -710,12 +735,12 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7A9BEF322D530EC600ADC745 /* XCRemoteSwiftPackageReference "Moya" */ = {
+		7AEA786A2D59777500635628 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Moya/Moya.git";
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 14.0.0;
+				kind = exactVersion;
+				version = 0.57.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

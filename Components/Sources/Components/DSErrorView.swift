@@ -88,7 +88,7 @@ public extension DSErrorView {
         errorModel: .generic(
             Image.negativeFeedback,
             "Some generic description about an generic error",
-            {}
+            { }
         )
     )
         .frame(width: .infinity, height: .infinity)
