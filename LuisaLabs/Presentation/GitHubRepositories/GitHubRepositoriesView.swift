@@ -25,20 +25,32 @@ struct GitHubRepositoriesView: View {
         case error(String)
     }
 
-    @StateObject private var viewModel = ViewModel()
+    @StateObject private var viewModel = GitHubViewModel()
     @State private var isSheetPresented = false
 
     var body: some View {
-        DSScreenView(state: $viewModel.viewState) {
-            buildContentView()
-                .background(Color.dsColor(.reverseColor))
-        }
-        .onAppear {
-            Task {
-                await viewModel.fetchRepositories()
+        NavigationStack {
+            DSScreenView(state: $viewModel.viewState) {
+                buildContentView()
+                    .background(Color.dsColor(.reverseColor))
+            }
+            .onAppear {
+                Task {
+                    await viewModel.fetchRepositories()
+                }
+            }
+            .toolbar {
+                ToolbarItem {
+                    HStack {
+                        Image
+                            .githubIcon
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                        DSText(AppStrings.Repository.title)
+                    }
+                }
             }
         }
-        .navigationTitle(AppStrings.Repository.title)
     }
 
     // MARK: - ContentView
@@ -90,11 +102,18 @@ struct GitHubRepositoriesView: View {
 
     private func buildListItem(_ repository: GitHubRepositoryResponse) -> some View {
         HStack {
-            VStack {
-                DSAsyncImage(urlString: repository.owner?.avatarUrl ?? "")
-                DSText(repository.owner?.login ?? "", variant: .small, textColor: .lightContrast)
+            Button {
+                viewModel.sheetUrl = repository.owner?.htmlUrl
+                isSheetPresented = true
+            } label: {
+                VStack {
+                    DSAsyncImage(urlString: repository.owner?.avatarUrl ?? "")
+                    DSText(repository.owner?.login ?? "", variant: .small, textColor: .lightContrast)
+                }
+                .padding(5)
+                .border(Color.dsColor(.contrast))
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
             Spacer()
             VStack {
                 HStack {
@@ -116,7 +135,19 @@ struct GitHubRepositoriesView: View {
                         Image
                             .githubIcon
                             .resizable()
-                            .frame(width: 15, height: 15).padding(2).border(Color.dsColor(.primary))
+                            .frame(width: 15, height: 15)
+                            .padding(2)
+                            .border(Color.dsColor(.primary))
+                    }
+                    NavigationLink {
+                        GitHubPullRequestsView(viewModel: viewModel)
+                    } label: {
+                        Image
+                            .pullRequestIcon
+                            .resizable()
+                            .frame(width: 15, height: 15)
+                            .padding(2)
+                            .border(Color.dsColor(.primary))
                     }
                     Spacer()
                 }
@@ -132,7 +163,6 @@ struct GitHubRepositoriesView: View {
             DSText(count)
         }
         .padding(2)
-        .border(Color.dsColor(.primary))
     }
 
     private func buildSheetView() -> some View {

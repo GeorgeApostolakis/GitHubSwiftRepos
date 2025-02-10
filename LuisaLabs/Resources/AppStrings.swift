@@ -10,7 +10,7 @@ import Core
 // swiftlint: disable all
 enum AppStrings {
     enum Repository {
-        static var title = "GitHub Swift"
+        static var title = "GitHub Swift | Repositories"
         enum Header {
             static var less = "Menos"
             static func quantity(current: Int, total: Int) -> String {
@@ -24,6 +24,10 @@ enum AppStrings {
                 "A url: \(urlString) não é uma url válida"
             }
         }
+    }
+
+    enum PullRequests {
+        static var title = "GitHub Swift | Pull Requests"
     }
 }
 // swiftlint: enable all

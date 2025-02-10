@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  GitHubViewModel.swift
 //  LuisaLabs
 //
 //  Created by george.apostolakis on 01/02/25.
@@ -8,9 +8,8 @@
 import Components
 import SwiftUI
 
-
 // MARK: - ViewModel
-class ViewModel: ObservableObject {
+class GitHubViewModel: ObservableObject {
     // MARK: - Properties & init
     @Published var viewState: ScreenState = .loading
     @Published var repos: [GitHubRepositoryResponse] = []
@@ -27,6 +26,43 @@ class ViewModel: ObservableObject {
 
     init(service: GitHubService = .live()) {
         self.service = service
+    }
+
+    // MARK: - Methods
+    func fetchRepositories(isNextPage: Bool = false) async {
+        await MainActor.run {
+            if isNextPage {
+                scrollViewIsLoading = true
+            } else {
+                viewState = .loading
+            }
+        }
+        do {
+            let response = try await service.fetchRepositories(buildRequest())
+            await publishesResult(response: response, isNextPage: isNextPage)
+        } catch {
+            await MainActor.run {
+                viewState = .error(
+                    .badRequest(
+                        error.localizedDescription,
+                        { [weak self] in
+                            guard let self else { return }
+                            Task {
+                                await self.fetchRepositories()
+                            }
+                        }
+                    )
+                )
+            }
+        }
+    }
+
+    @MainActor
+    func requestMoreItemsIfNeeded(_ index: Int) async {
+        guard shouldRequestMoreItems(index) else { return }
+        scrollViewIsLoading = true
+        currentPage += 1
+        await fetchRepositories(isNextPage: true)
     }
 
     // MARK: - Internal Methods
@@ -61,44 +97,6 @@ class ViewModel: ObservableObject {
         total = response.totalCount ?? 0
         repos.append(contentsOf: items)
         showContents = repos.count
-    }
-
-    // MARK: - Methods
-    func fetchRepositories(isNextPage: Bool = false) async {
-        await MainActor.run {
-            if isNextPage {
-                scrollViewIsLoading = true
-            } else {
-                viewState = .loading
-            }
-        }
-        do {
-            let response = try await service.fetchRepositories(buildRequest())
-            await publishesResult(response: response, isNextPage: isNextPage)
-
-        } catch {
-            await MainActor.run {
-                viewState = .error(
-                    .badRequest(
-                        error.localizedDescription,
-                        { [weak self] in
-                            guard let self else { return }
-                            Task {
-                                await self.fetchRepositories()
-                            }
-                        }
-                    )
-                )
-            }
-        }
-    }
-
-    @MainActor
-    func requestMoreItemsIfNeeded(_ index: Int) async {
-        guard shouldRequestMoreItems(index) else { return }
-        scrollViewIsLoading = true
-        currentPage += 1
-        await fetchRepositories(isNextPage: true)
     }
 
     private func shouldRequestMoreItems(_ index: Int) -> Bool {

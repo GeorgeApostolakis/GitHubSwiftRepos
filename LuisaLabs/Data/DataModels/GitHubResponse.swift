@@ -32,4 +32,19 @@ struct GitHubRepositoryResponse: Decodable {
 struct RepositoryOwnerResponse: Decodable {
     let login: String?
     let avatarUrl: String?
+    let htmlUrl: String?
+}
+
+struct GitHubPullRequestResponse: Decodable {
+    let htmlUrl: String?
+    let title: String?
+    let state: State
+    let body: String?
+    let createdAt: Date?
+    let mergedAt: Date?
+
+    enum State: String, Decodable {
+        case closed
+        case open
+    }
 }
