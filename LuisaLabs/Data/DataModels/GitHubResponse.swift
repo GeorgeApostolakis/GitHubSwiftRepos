@@ -38,10 +38,11 @@ struct RepositoryOwnerResponse: Decodable {
 struct GitHubPullRequestResponse: Decodable {
     let htmlUrl: String?
     let title: String?
-    let state: State
+    let state: State?
     let body: String?
     let createdAt: Date?
     let mergedAt: Date?
+    let user: RepositoryOwnerResponse?
 
     enum State: String, Decodable {
         case closed

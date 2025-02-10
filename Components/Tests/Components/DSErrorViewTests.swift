@@ -72,7 +72,7 @@ final class DSErrorViewTests: XCTestCase {
         let error = DSErrorView.Model.connection({ })
         // when
         let sut = DSErrorView(errorModel: error)
-        //then
+        // then
         try assertSnapShoot(matching: sut.embeddedInView())
     }
 }

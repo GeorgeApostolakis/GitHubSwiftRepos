@@ -1,25 +1,23 @@
 //
-//  GitHubViewModel.swift
+//  RepositoriesViewModel.swift
 //  LuisaLabs
 //
 //  Created by george.apostolakis on 01/02/25.
 //
 
 import Components
+import Core
 import SwiftUI
 
 // MARK: - ViewModel
-class GitHubViewModel: ObservableObject {
+class RepositoriesViewModel: ObservableObject {
     // MARK: - Properties & init
     @Published var viewState: ScreenState = .loading
-    @Published var repos: [GitHubRepositoryResponse] = []
-    @Published var scrollViewIsLoading: Bool = false
+    var scrollViewIsLoading: Bool = false
 
     var sheetUrl: String?
-    var total: Int = 0
-    var showContents: Int = 0
 
-    private var currentPage: Int = 1
+    @Published var repositoryResponse = PaginatedResponse<GitHubRepositoryResponse>()
 
     private var query: GitHubRequest.GitHubQuery = .init()
     private let service: GitHubService
@@ -59,9 +57,9 @@ class GitHubViewModel: ObservableObject {
 
     @MainActor
     func requestMoreItemsIfNeeded(_ index: Int) async {
-        guard shouldRequestMoreItems(index) else { return }
+        guard repositoryResponse.shouldRequestMoreItems(index) else { return }
         scrollViewIsLoading = true
-        currentPage += 1
+        repositoryResponse.currentPage += 1
         await fetchRepositories(isNextPage: true)
     }
 
@@ -69,7 +67,7 @@ class GitHubViewModel: ObservableObject {
     private func buildRequest() -> GitHubRequest {
         .init(
             query: query,
-            page: currentPage
+            page: repositoryResponse.currentPage
         )
     }
 
@@ -94,15 +92,8 @@ class GitHubViewModel: ObservableObject {
         } else {
             viewState = .content
         }
-        total = response.totalCount ?? 0
-        repos.append(contentsOf: items)
-        showContents = repos.count
-    }
-
-    private func shouldRequestMoreItems(_ index: Int) -> Bool {
-        let theFirstRequestIsAlreadyDisplayed = showContents > 0
-        let hasReachedNearTheEndOfTheScroll = index == (showContents - 6)
-        let hasMoreItems = showContents < total
-        return theFirstRequestIsAlreadyDisplayed && hasReachedNearTheEndOfTheScroll && hasMoreItems
+        repositoryResponse.total = response.totalCount ?? 0
+        repositoryResponse.items.append(contentsOf: items)
+        repositoryResponse.showContents = repositoryResponse.items.count
     }
 }

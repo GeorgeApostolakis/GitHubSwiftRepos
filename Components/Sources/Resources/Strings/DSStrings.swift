@@ -15,4 +15,8 @@ enum DSStrings {
         static var badRequestTitle = "Ocorreu um erro aqui!"
         static var retryButton = "Tentar Novamente"
     }
+
+    enum InfinityScrollView {
+        static var allItemsHasBeenShown = "Todos os itens já foram exibidos"
+    }
 }
