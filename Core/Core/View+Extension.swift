@@ -14,6 +14,6 @@ public extension View {
 
     func embeddedInView() -> some View {
         frame(width: 360, height: 800)
-            .background(Color.white)
+            .background(Color.gray)
     }
 }

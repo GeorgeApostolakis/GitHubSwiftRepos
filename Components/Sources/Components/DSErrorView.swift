@@ -7,9 +7,15 @@
 
 import SwiftUI
 
+/// `DSErrorView` is a view designed to represent error states.
+///
+/// This view displays the error message, an error image and provides an optional retry action button.
+///
+/// - Parameters:
+///   - errorModel: Model containing the Error State Info and retry action.
 public struct DSErrorView: View {
     private let errorModel: Model
-
+    
     public init(errorModel: Model) {
         self.errorModel = errorModel
     }
