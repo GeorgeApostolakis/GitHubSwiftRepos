@@ -15,30 +15,37 @@ struct GitHubResponse: Decodable {
     let message: String?
 }
 
-struct GitHubRepositoryResponse: Decodable, Identifiable {
-    let id = UUID()
+struct GitHubRepositoryResponse: Decodable {
     let name: String?
+    let fullName: String?
     let description: String?
     let htmlUrl: String?
     let watchersCount: Int?
     let stargazersCount: Int?
-    let forkCount: Int?
+    let stargazersUrl: String?
+    let forksCount: Int?
+    let forksUrl: String?
     let topics: [String]?
     let owner: RepositoryOwnerResponse?
+}
 
-    enum CodingKeys: CodingKey {
-        case name
-        case description
-        case htmlUrl
-        case watchersCount
-        case stargazersCount
-        case forkCount
-        case topics
-        case owner
-    }
+struct RepositoryOwnerResponse: Decodable {
+    let login: String?
+    let avatarUrl: String?
+    let htmlUrl: String?
+}
 
-    struct RepositoryOwnerResponse: Decodable {
-        let login: String?
-        let avatarUrl: String?
+struct GitHubPullRequestResponse: Decodable {
+    let htmlUrl: String?
+    let title: String?
+    let state: State?
+    let body: String?
+    let createdAt: Date?
+    let mergedAt: Date?
+    let user: RepositoryOwnerResponse?
+
+    enum State: String, Decodable {
+        case closed
+        case open
     }
 }

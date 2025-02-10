@@ -9,11 +9,10 @@ import Foundation
 
 struct GitHubRequest {
     let query: GitHubQuery
-    let sort: SortParameters
-    let language: CodeLanguage
+    let sort: SortParameters = .stars
+    let language: CodeLanguage = .swift
     let page: Int
-    let resultsPerPage: Int
-    let token = "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"
+    let resultsPerPage: Int = 30
 
     var requestParameters: [URLQueryItem] {
         let requestParameters: [URLQueryItem] = [

@@ -12,7 +12,6 @@ import XCTest
 @testable import Components
 
 final class DSScreenViewTests: XCTestCase {
-
     func test_givenErrorState_whenBuildingView_thenAssertCorrectSnapshoot() throws {
         // given
         let screenState: Binding<ScreenState> = .constant(.error(.connection(nil)))

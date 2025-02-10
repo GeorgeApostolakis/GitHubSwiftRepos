@@ -76,34 +76,31 @@ public struct DSButton: View {
 public enum DSButtonVariant {
     case fill
     case text
-    case image(Image)
 
     var textColor: DSColor {
         switch self {
         case .fill: return .reverseColor
         case .text: return .primary
-        case .image: return .clear
         }
     }
 
     var backgroundColor: Color {
         switch self {
         case .fill: return Color.dsColor(.contrast)
-        case .text, .image: return Color.dsColor(.clear)
+        case .text: return Color.dsColor(.clear)
         }
     }
 
     var disableTextColor: DSColor {
         switch self {
         case .fill, .text: return .reverseColor
-        case .image: return .clear
         }
     }
 
     var disableBackgroundColor: Color {
         switch self {
         case .fill: return Color.dsColor(.lightContrast)
-        case .text, .image: return Color.dsColor(.clear)
+        case .text: return Color.dsColor(.clear)
         }
     }
 }

@@ -9,6 +9,7 @@ import Foundation
 
 struct GitHubService {
     var fetchRepositories: (GitHubRequest) async throws -> GitHubResponse
+    var fetchPullRequests: (String, String, Int) async throws -> [GitHubPullRequestResponse]
 }
 
 extension GitHubService {
@@ -21,9 +22,17 @@ extension GitHubService {
 
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let response = try decoder.decode(GitHubResponse.self, from: data)
+                return try decoder.decode(GitHubResponse.self, from: data)
+            }, fetchPullRequests: { creator, repo, page in
+                let url = try GitHubEndpoints.pullRequests(creator: creator, repo: repo, page: page)
 
-                return response
+                let (data, _) = try await URLSession.shared.data(from: url)
+
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                decoder.dateDecodingStrategy = .iso8601
+
+                return try decoder.decode([GitHubPullRequestResponse].self, from: data)
             }
         )
     }
