@@ -8,6 +8,14 @@
 import Core
 import SwiftUI
 
+/// A `Screen` struct representing a view with three main states: loading, content, and error.
+///
+/// The `Screen` uses the `ScreenState` to determine which view to present.
+///
+/// - Parameters:
+///   - state: `Binding<ScreenState>` with current selected state.
+///   - content: Closure that builds to be render in content mode.
+///   - loadingView: Closure that builds to be render in loading mode.
 public struct DSScreenView<Content: View>: View {
     @Binding private var state: ScreenState
     private let content: () -> Content
