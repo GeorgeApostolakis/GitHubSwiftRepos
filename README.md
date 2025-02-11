@@ -11,4 +11,4 @@ O projeto foi desenvolvido usando a arquitetura MVVMC, com as seguinds especific
    * swift-snapshot-testing - testes de UI
    * Swiftlint - Boas práticas de código
 
-Todo setup é feito via SPM, não sendo necessário, nenhum setup externo.
+Todo setup é feito via SPM, não sendo necessário, nenhum setup adicional.
